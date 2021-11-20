@@ -26,6 +26,9 @@ object Dependencies {
     private val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     private val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
+    //SqlDelight
+    private val sqlDelightAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+
     private val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
 
 
@@ -34,6 +37,7 @@ object Dependencies {
     private val extJUnit = "androidx.test.ext:junit:${Versions.extJunit}"
     private val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     private val mockito = "org.mockito:mockito-core:${Versions.mockito}"
+    private val sqlDelightTest = "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}"
 
 
 
@@ -55,6 +59,7 @@ object Dependencies {
         add(serialization)
         add(coroutinesCore)
         add(coroutinesAndroid)
+        add(sqlDelightAndroid)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
@@ -65,6 +70,7 @@ object Dependencies {
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
         add(mockito)
+        add(sqlDelightTest)
     }
 }
 

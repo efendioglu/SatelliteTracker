@@ -1,0 +1,39 @@
+CREATE TABLE Satellite (
+    id INTEGER AS Int NOT NULL PRIMARY KEY,
+    active INTEGER AS Boolean NOT NULL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE SatelliteDetail (
+    id INTEGER AS Int NOT NULL PRIMARY KEY,
+    costPerLaunch INTEGER AS Int NOT NULL,
+    firstFlight TEXT NOT NULL,
+    height INTEGER NOT NULL,
+    mass INTEGER NOT NULL
+);
+
+CREATE TABLE Position (
+    id INTEGER AS Int NOT NULL PRIMARY KEY,
+    posX REAL AS Double NOT NULL,
+    posY REAL AS Double NOT NULL
+);
+
+getSatellites:
+SELECT * FROM Satellite;
+
+getSatelliteDetail:
+SELECT * FROM SatelliteDetail
+WHERE id = ?;
+
+getSatellitePositions:
+SELECT * FROM Position
+WHERE id = ?;
+
+removeAllSatellites:
+DELETE FROM Satellite;
+
+removeAllSatelliteDetails:
+DELETE FROM SatelliteDetail;
+
+removeAllPositions:
+DELETE FROM Position;
