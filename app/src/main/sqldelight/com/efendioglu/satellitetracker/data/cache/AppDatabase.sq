@@ -29,6 +29,18 @@ getSatellitePositions:
 SELECT * FROM Position
 WHERE id = ?;
 
+insertSatellite:
+INSERT INTO Satellite(id, active, name)
+VALUES(?, ?, ?);
+
+insertSatelliteDetail:
+INSERT INTO SatelliteDetail(id, costPerLaunch, firstFlight, height, mass)
+VALUES(?, ?, ?, ?, ?);
+
+insertSatellitePosition:
+INSERT INTO Position(id, posX, posY)
+VALUES(?, ?, ?);
+
 removeAllSatellites:
 DELETE FROM Satellite;
 

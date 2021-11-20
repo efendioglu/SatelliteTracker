@@ -7,6 +7,8 @@ package com.efendioglu.satellitetracker.data.cache
 
 import com.efendioglu.satellitetracker.Database
 import com.efendioglu.satellitetracker.data.model.Position
+import com.efendioglu.satellitetracker.data.model.Satellite
+import com.efendioglu.satellitetracker.data.model.SatelliteDetail
 import com.efendioglu.satellitetracker.data.model.SatellitePositions
 
 class DatabaseHelper(database: Database) {
@@ -44,7 +46,7 @@ class DatabaseHelper(database: Database) {
         height: Long,
         mass: Long
     ): SatelliteDetail {
-        return SatelliteDetail(id, costPerLaunch, firstFlight, height, mass)
+        return SatelliteDetail(id, costPerLaunch, firstFlight, height.toInt(), mass.toInt())
     }
 
     private fun map(id: Int, active: Boolean, name: String): Satellite {
