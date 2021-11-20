@@ -17,6 +17,7 @@ object Versions {
     const val ktor = "1.6.1"
     const val sqlDelight = "1.4.2"
     const val serialization = "1.2.2"
+    const val coroutines = "1.5.2"
 
     //test
     const val junit = "4.12"

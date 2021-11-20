@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Response<out T>(
-    @SerialName("data") val data: T?,
-    @SerialName("error") val error: String?
+    @SerialName("data") val data: T? = null,
+
+    @SerialName("error") val error: String? = null
 )

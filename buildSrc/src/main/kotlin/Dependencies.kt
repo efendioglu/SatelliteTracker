@@ -22,7 +22,12 @@ object Dependencies {
     private val ktorSerialization = "io.ktor:ktor-client-serialization:${Versions.ktor}"
     private val ktorLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
 
+    //Coroutines
+    private val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    private val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
     private val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
+
 
     //test libs
     private val junit = "junit:junit:${Versions.junit}"
@@ -48,6 +53,8 @@ object Dependencies {
         add(ktorSerialization)
         add(ktorLogging)
         add(serialization)
+        add(coroutinesCore)
+        add(coroutinesAndroid)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {

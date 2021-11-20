@@ -16,20 +16,13 @@ import io.ktor.http.*
 
 class ApiServiceImpl(private val httpClient: HttpClient, val baseUrl: String): ApiService {
 
-    override suspend fun getSatellites(): Response<List<Satellite>> = get("/satellite/list")
+    override suspend fun getSatellites(): Response<List<Satellite>> = httpClient.get { send("/satellite/list") }
 
-    override suspend fun getSatelliteDetail(id: Int): Response<SatelliteDetail> = get("/satellite/$id")
+    override suspend fun getSatelliteDetail(id: Int): Response<SatelliteDetail> = httpClient.get { send("/satellite/$id") }
 
-    override suspend fun getSatellitePositions(id: Int): Response<SatellitePositions> = get("/satellite/$id/position/list")
+    override suspend fun getSatellitePositions(id: Int): Response<SatellitePositions> = httpClient.get { send("/satellite/$id/position/list") }
 
-    private suspend fun <T> ApiServiceImpl.get(path: String): Response<T> = httpClient.get {
-        HttpRequestBuilder {
-            takeFrom(baseUrl)
-            encodedPath = path
-        }
-    }
-
-    private fun HttpRequestBuilder.get(path: String) = url {
+    private fun HttpRequestBuilder.send(path: String) = url {
         takeFrom(baseUrl)
         encodedPath = path
     }
