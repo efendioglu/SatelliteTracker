@@ -14,7 +14,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 
 
-class ApiServiceImpl(private val httpClient: HttpClient, val baseUrl: String): ApiService {
+class ApiServiceImpl(private val httpClient: HttpClient, private val baseUrl: String): ApiService {
 
     override suspend fun getSatellites(): Response<List<Satellite>> = httpClient.get { send("/satellite/list") }
 

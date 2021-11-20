@@ -12,6 +12,7 @@ object Versions {
     const val recyclerview = "1.1.0"
     const val swiperefreshlayout = "1.1.0"
     const val cardview = "1.0.0"
+    const val fragmentKtx = "1.2.5"
 
     const val koin = "3.1.3"
     const val ktor = "1.6.1"

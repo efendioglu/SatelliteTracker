@@ -10,8 +10,10 @@ object Dependencies {
     private val lifecycleLivedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleKtx}"
     private val lifecycleViewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleKtx}"
     private val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
-    private val swiperefreshlayout = "androidx.recyclerview:recyclerview:${Versions.swiperefreshlayout}"
+    private val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swiperefreshlayout}"
     private val cardview = "androidx.recyclerview:recyclerview:${Versions.cardview}"
+    private val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
+
 
     //Koin
     private val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
@@ -51,6 +53,7 @@ object Dependencies {
         add(recyclerview)
         add(swiperefreshlayout)
         add(cardview)
+        add(fragmentKtx)
         add(koinAndroid)
         add(koinJunit)
         add(ktorAndroid)
