@@ -47,5 +47,13 @@ DELETE FROM Satellite;
 removeAllSatelliteDetails:
 DELETE FROM SatelliteDetail;
 
+removeSatelliteDetailById:
+DELETE FROM SatelliteDetail
+WHERE id = ?;
+
 removeAllPositions:
 DELETE FROM Position;
+
+removePositionsById:
+DELETE FROM Position
+WHERE id = ?;

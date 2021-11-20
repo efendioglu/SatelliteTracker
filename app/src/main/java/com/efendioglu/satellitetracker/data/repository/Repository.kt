@@ -11,9 +11,9 @@ import com.efendioglu.satellitetracker.data.model.SatelliteDetail
 import com.efendioglu.satellitetracker.data.model.SatellitePositions
 
 interface Repository {
-    suspend fun getSatellites(): Response<List<Satellite>>
+    suspend fun getSatellites(forceReload: Boolean): Response<List<Satellite>>
 
-    suspend fun getSatelliteDetail(id: Int): Response<SatelliteDetail>
+    suspend fun getSatelliteDetail(id: Int, forceReload: Boolean): Response<SatelliteDetail>
 
-    suspend fun getSatellitePositions(id: Int): Response<SatellitePositions>
+    suspend fun getSatellitePositions(id: Int, forceReload: Boolean): Response<SatellitePositions>
 }
