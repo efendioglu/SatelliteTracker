@@ -19,7 +19,9 @@ class DatabaseHelper(database: Database) {
     internal fun getSatelliteDetail(id: Int): SatelliteDetail? = dbQuery.getSatelliteDetail(id, ::map).executeAsOneOrNull()
 
     internal fun getSatellitePositions(id: Int): SatellitePositions {
-        val positions = dbQuery.getSatellitePositions(id, ::map).executeAsList()
+        val positions = dbQuery.getSatellitePositions(id) { _, posX, posY ->
+            Position(posX, posY)
+        }.executeAsList()
         return SatellitePositions(id, positions)
     }
 
@@ -54,9 +56,6 @@ class DatabaseHelper(database: Database) {
         active = satellite.active,
         name = satellite.name
     )
-
-
-    private fun map(id: Int, posX: Double, posY: Double): Position = Position(posX, posY)
 
     private fun map(
         id: Int,
