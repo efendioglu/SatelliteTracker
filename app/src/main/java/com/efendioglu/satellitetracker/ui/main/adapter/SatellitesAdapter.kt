@@ -8,23 +8,20 @@ package com.efendioglu.satellitetracker.ui.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.efendioglu.satellitetracker.R
 import com.efendioglu.satellitetracker.data.model.Satellite
 import com.efendioglu.satellitetracker.databinding.ItemviewSatelliteBinding
+import com.efendioglu.satellitetracker.ui.detail.DetailFragment
 
-//typealias ActionCallback = SatellitesAdapter.(Int) -> Unit
 
-//fun interface Callback {
-//    fun call(data: List<RocketLaunch>?, error: Throwable?)
-//}
-
-class SatellitesAdapter(private var satellites: List<Satellite>, val onClickItem: (item: Satellite) -> Unit): RecyclerView.Adapter<SatellitesAdapter.SatelliteViewHolder>() {
+class SatellitesAdapter(private var satellites: List<Satellite>): RecyclerView.Adapter<SatellitesAdapter.SatelliteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SatelliteViewHolder {
         return SatelliteViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.itemview_satellite, parent,false), onClickItem)
+                .inflate(R.layout.itemview_satellite, parent,false))
     }
 
     override fun onBindViewHolder(holder: SatelliteViewHolder, position: Int) {
@@ -40,7 +37,7 @@ class SatellitesAdapter(private var satellites: List<Satellite>, val onClickItem
         notifyDataSetChanged()
     }
 
-    class SatelliteViewHolder(itemView: View, val callback: (item: Satellite) -> Unit): RecyclerView.ViewHolder(itemView) {
+    class SatelliteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val binding = ItemviewSatelliteBinding.bind(itemView)
 
@@ -56,7 +53,8 @@ class SatellitesAdapter(private var satellites: List<Satellite>, val onClickItem
             }
 
             itemView.setOnClickListener {
-                callback(satellite)
+                itemView.findNavController().navigate(R.id.action_mainFragment_to_detailFragment,
+                    DetailFragment.newBundle(satellite.id, satellite.name))
             }
         }
     }

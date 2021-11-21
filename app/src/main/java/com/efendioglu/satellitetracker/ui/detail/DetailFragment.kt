@@ -6,12 +6,12 @@
 package com.efendioglu.satellitetracker.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.efendioglu.satellitetracker.Database
@@ -33,11 +33,9 @@ class DetailFragment : Fragment() {
         const val KEY_ID = "key_id"
         const val KEY_NAME = "key_name"
 
-        fun newInstance(satelliteId: Int, satelliteName: String) = DetailFragment().apply {
-            arguments = Bundle().apply {
-                putInt(KEY_ID, satelliteId)
-                putString(KEY_NAME, satelliteName)
-            }
+        fun newBundle(satelliteId: Int, satelliteName: String) = Bundle().apply {
+            putInt(KEY_ID, satelliteId)
+            putString(KEY_NAME, satelliteName)
         }
     }
 

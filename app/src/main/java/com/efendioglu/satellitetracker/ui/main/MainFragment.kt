@@ -40,20 +40,12 @@ class MainFragment : Fragment() {
 
     private lateinit var callback: ActionCallback
 
-    companion object {
-        fun newInstance(callback: ActionCallback): MainFragment {
-            val fragment = MainFragment()
-            fragment.callback = callback
-            return fragment
-        }
-    }
-
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
 
-    private lateinit var adapter: SatellitesAdapter;
+    private var adapter = SatellitesAdapter(arrayListOf())
 
 
     private val json = kotlinx.serialization.json.Json {
@@ -115,10 +107,6 @@ class MainFragment : Fragment() {
     }
 
     private fun setupUI() {
-        adapter = SatellitesAdapter(arrayListOf()) { item ->
-            callback(item)
-        }
-
         binding.satelliteListView.layoutManager = LinearLayoutManager(context)
         binding.satelliteListView.run {
             val divider = DividerItemDecoration(
