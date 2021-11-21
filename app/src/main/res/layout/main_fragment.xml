@@ -24,7 +24,9 @@
         android:textColorHint="@color/gray"
         android:textSize="16sp"
         android:textColor="@color/dark"
-        android:imeOptions="actionSearch">
+        android:imeOptions="actionSearch"
+        android:inputType="textImeMultiLine"
+        android:maxLines="1">
 
     </androidx.appcompat.widget.AppCompatEditText>
 

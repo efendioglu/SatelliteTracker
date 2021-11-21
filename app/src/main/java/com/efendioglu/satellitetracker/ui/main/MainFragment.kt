@@ -6,7 +6,6 @@
 package com.efendioglu.satellitetracker.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +17,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.efendioglu.satellitetracker.R
-import com.efendioglu.satellitetracker.data.model.Satellite
 import com.efendioglu.satellitetracker.databinding.MainFragmentBinding
 import com.efendioglu.satellitetracker.ui.main.adapter.SatellitesAdapter
+import com.efendioglu.satellitetracker.utils.closeKeyboard
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-typealias ActionCallback = (Satellite) -> Unit
 
 class MainFragment : Fragment() {
 
@@ -45,15 +43,9 @@ class MainFragment : Fragment() {
         val view = binding.root
 
         setupUI()
-        initObservers()
 
-        binding.swipeContainer.setOnRefreshListener {
-            viewModel.sendIntent(MainContract.Intent.RefreshSatellites)
-        }
-
-        binding.searchInputView.addTextChangedListener {
-            viewModel.sendIntent(MainContract.Intent.SearchSatellitesByName(it.toString()))
-        }
+        initStateObservers()
+        initIntentObservers()
 
         viewModel.sendIntent(MainContract.Intent.FetchSatellites)
 
@@ -79,6 +71,37 @@ class MainFragment : Fragment() {
         binding.satelliteListView.adapter = adapter
     }
 
+
+    private fun initIntentObservers() = with(binding) {
+        swipeContainer.setOnRefreshListener {
+            viewModel.sendIntent(MainContract.Intent.RefreshSatellites)
+        }
+
+        with(searchInputView) {
+            addTextChangedListener {
+                viewModel.sendIntent(MainContract.Intent.SearchSatellitesByName(it.toString()))
+            }
+
+            setOnEditorActionListener { view, _, _ ->
+                view.closeKeyboard()
+                false
+            }
+        }
+    }
+
+
+    private fun initStateObservers() = lifecycleScope.launchWhenStarted {
+        viewModel.state.collect {
+            when(it.state) {
+                is MainContract.MainState.Idle -> { binding.progressView.isVisible = false }
+                is MainContract.MainState.Loading -> { binding.progressView.isVisible = false }
+                is MainContract.MainState.Success -> handleSuccessState(it.state)
+                is MainContract.MainState.Error -> handleErrorState(it.state)
+            }
+        }
+    }
+
+
     private fun handleSuccessState(state: MainContract.MainState.Success) {
         adapter.setData(state.satellites)
 
@@ -92,17 +115,6 @@ class MainFragment : Fragment() {
     private fun handleErrorState(state: MainContract.MainState.Error) {
         state.message?.also { msg ->
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun initObservers() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect {
-            when(it.state) {
-                is MainContract.MainState.Idle -> { binding.progressView.isVisible = false }
-                is MainContract.MainState.Loading -> { binding.progressView.isVisible = false }
-                is MainContract.MainState.Success -> handleSuccessState(it.state)
-                is MainContract.MainState.Error -> handleErrorState(it.state)
-            }
         }
     }
 }

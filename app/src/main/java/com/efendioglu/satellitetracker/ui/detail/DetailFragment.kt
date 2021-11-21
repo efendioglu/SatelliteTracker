@@ -43,7 +43,7 @@ class DetailFragment : Fragment() {
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        initObservers()
+        initStateObservers()
 
         arguments?.apply {
             val id = getInt(KEY_ID)
@@ -63,6 +63,19 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
+
+
+    private fun initStateObservers() = lifecycleScope.launchWhenStarted {
+        viewModel.state.collect {
+            when(it.state) {
+                is DetailContract.DetailState.Idle -> { binding.progressView.isVisible = false }
+                is DetailContract.DetailState.Loading -> { binding.progressView.isVisible = true }
+                is DetailContract.DetailState.DetailInfo -> handleDetailState(it.state)
+                is DetailContract.DetailState.CurrentPosition -> handlePositionState(it.state)
+                is DetailContract.DetailState.Error -> handleErrorState(it.state)
+            }
+        }
+    }
 
     private fun handleDetailState(state: DetailContract.DetailState.DetailInfo) {
         val detail = state.detail
@@ -85,19 +98,6 @@ class DetailFragment : Fragment() {
     private fun handleErrorState(state: DetailContract.DetailState.Error) {
         state.message?.also { msg ->
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private fun initObservers() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collect {
-            when(it.state) {
-                is DetailContract.DetailState.Idle -> { binding.progressView.isVisible = false }
-                is DetailContract.DetailState.Loading -> { binding.progressView.isVisible = true }
-                is DetailContract.DetailState.DetailInfo -> handleDetailState(it.state)
-                is DetailContract.DetailState.CurrentPosition -> handlePositionState(it.state)
-                is DetailContract.DetailState.Error -> handleErrorState(it.state)
-            }
         }
     }
 }
