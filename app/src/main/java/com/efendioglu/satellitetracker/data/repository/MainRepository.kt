@@ -15,7 +15,7 @@ import com.efendioglu.satellitetracker.data.model.SatellitePositions
 class MainRepository(private val api: ApiService, private val database: DatabaseHelper): Repository {
     override suspend fun getSatellites(query: String, forceReload: Boolean): Response<List<Satellite>> {
         val satellites = database.getSatellites(query)
-        return if (satellites.isNotEmpty() && !forceReload) {
+        return if (((query.isEmpty() && satellites.isNotEmpty()) || query.isNotEmpty()) && !forceReload) {
             Response(data = satellites)
         } else {
             val response = api.getSatellites()
