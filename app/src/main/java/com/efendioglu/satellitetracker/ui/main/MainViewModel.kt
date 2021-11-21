@@ -5,11 +5,11 @@
 
 package com.efendioglu.satellitetracker.ui.main
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.efendioglu.satellitetracker.data.repository.Repository
 import com.efendioglu.satellitetracker.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
 
 class MainViewModel(private val repository: Repository) : BaseViewModel<MainContract.State, MainContract.Intent>() {
     override fun createInitialState(): MainContract.State = MainContract.State(MainContract.MainState.Idle)

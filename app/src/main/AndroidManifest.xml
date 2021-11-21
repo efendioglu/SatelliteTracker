@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.StalliteTracker">
+        android:theme="@style/Theme.StalliteTracker"
+        android:name=".MainApp">
         <activity
             android:name="com.efendioglu.satellitetracker.MainActivity"
             android:exported="true">

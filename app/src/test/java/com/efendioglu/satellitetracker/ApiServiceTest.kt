@@ -16,6 +16,7 @@ import org.junit.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
+
 class ApiServiceTest {
 
     private lateinit var json: Json
@@ -39,6 +40,7 @@ class ApiServiceTest {
         }
         api = ApiServiceImpl(httpClient, "http://localhost:3000")
     }
+
 
     @Test
     fun `return 3 satellites on getSatellites`() {
