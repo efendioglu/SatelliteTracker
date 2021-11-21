@@ -14,7 +14,7 @@ import com.efendioglu.satellitetracker.data.model.SatellitePositions
 class DatabaseHelper(database: Database) {
     private val dbQuery = database.appDatabaseQueries
 
-    internal fun getSatellites(): List<Satellite> = dbQuery.getSatellites(::map).executeAsList()
+    internal fun getSatellites(query: String): List<Satellite> = dbQuery.getSatellites("%$query%", ::map).executeAsList()
 
     internal fun getSatelliteDetail(id: Int): SatelliteDetail? = dbQuery.getSatelliteDetail(id, ::map).executeAsOneOrNull()
 

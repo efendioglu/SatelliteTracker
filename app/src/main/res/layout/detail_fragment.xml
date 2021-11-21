@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.detail.DetailFragment"
+    android:background="#eee">
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="nameView,firstFlightView,heightMassLayout,costLayout,positionLayout"
+        app:flow_horizontalAlign="center"
+        app:flow_horizontalBias="0.5"
+        app:flow_maxElementsWrap="1"
+        app:flow_verticalBias="0.5"
+        app:flow_verticalGap="8dp"
+        app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:textColor="@color/dark"
+        android:textStyle="bold"
+        tools:text="Starship-1"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/firstFlightView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light"
+        android:textSize="12sp"
+        android:text="01.12.2021" />
+
+    <LinearLayout
+        android:id="@+id/heightMassLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="40dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:textStyle="bold"
+            android:text="Height/Mass: "/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/heightMassView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:text="110/118000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/costLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:textStyle="bold"
+            android:text="Cost: "/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/costView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:text="8.3000.000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/positionLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:textStyle="bold"
+            android:text="Last Position: "/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/positionView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:text="(0.84002312, 0.9092233)"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progressView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

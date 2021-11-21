@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.efendioglu.satellitetracker.data.api.ApiService
 import com.efendioglu.satellitetracker.data.cache.DatabaseHelper
 import com.efendioglu.satellitetracker.data.repository.MainRepository
+import com.efendioglu.satellitetracker.ui.base.BaseViewModel
+import com.efendioglu.satellitetracker.ui.detail.DetailViewModel
 import com.efendioglu.satellitetracker.ui.main.MainViewModel
 
 class ViewModelFactory(private val api: ApiService, private val db: DatabaseHelper) : ViewModelProvider.Factory {
@@ -17,6 +19,8 @@ class ViewModelFactory(private val api: ApiService, private val db: DatabaseHelp
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(MainRepository(api, db)) as T
+        } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(MainRepository(api, db)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

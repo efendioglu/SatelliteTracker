@@ -11,8 +11,9 @@ import com.efendioglu.satellitetracker.ui.base.UIState
 
 class MainContract {
     sealed class Intent: UIIntent {
-        object OnPullToRefresh: Intent()
-        data class OnSearchSatellitesByName(val text: String): Intent()
+        object RefreshSatellites: Intent()
+        object FetchSatellites: Intent()
+        data class SearchSatellitesByName(val text: String): Intent()
     }
 
     data class State(
@@ -22,7 +23,7 @@ class MainContract {
     sealed class MainState {
         object Idle: MainState()
         object Loading: MainState()
-        data class Satellites(val satellites: List<Satellite>): MainState()
+        data class Success(val satellites: List<Satellite>): MainState()
         data class Error(val message: String?): MainState()
     }
 }

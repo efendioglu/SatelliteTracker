@@ -13,12 +13,18 @@ import com.efendioglu.satellitetracker.R
 import com.efendioglu.satellitetracker.data.model.Satellite
 import com.efendioglu.satellitetracker.databinding.ItemviewSatelliteBinding
 
-class SatellitesAdapter(private var satellites: List<Satellite>): RecyclerView.Adapter<SatellitesAdapter.SatelliteViewHolder>() {
+//typealias ActionCallback = SatellitesAdapter.(Int) -> Unit
+
+//fun interface Callback {
+//    fun call(data: List<RocketLaunch>?, error: Throwable?)
+//}
+
+class SatellitesAdapter(private var satellites: List<Satellite>, val onClickItem: (item: Satellite) -> Unit): RecyclerView.Adapter<SatellitesAdapter.SatelliteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SatelliteViewHolder {
         return SatelliteViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.itemview_satellite, parent,false))
+                .inflate(R.layout.itemview_satellite, parent,false), onClickItem)
     }
 
     override fun onBindViewHolder(holder: SatelliteViewHolder, position: Int) {
@@ -34,9 +40,10 @@ class SatellitesAdapter(private var satellites: List<Satellite>): RecyclerView.A
         notifyDataSetChanged()
     }
 
-    class SatelliteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class SatelliteViewHolder(itemView: View, val callback: (item: Satellite) -> Unit): RecyclerView.ViewHolder(itemView) {
 
         private val binding = ItemviewSatelliteBinding.bind(itemView)
+
 
         fun bind(satellite: Satellite) {
             with(binding) {
@@ -46,6 +53,10 @@ class SatellitesAdapter(private var satellites: List<Satellite>): RecyclerView.A
                 indicatorView.isActivated = satellite.active
                 nameView.isActivated = satellite.active
                 statusView.isActivated = satellite.active
+            }
+
+            itemView.setOnClickListener {
+                callback(satellite)
             }
         }
     }

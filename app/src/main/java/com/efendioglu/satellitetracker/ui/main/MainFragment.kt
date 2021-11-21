@@ -6,10 +6,13 @@
 package com.efendioglu.satellitetracker.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +22,7 @@ import com.efendioglu.satellitetracker.Database
 import com.efendioglu.satellitetracker.R
 import com.efendioglu.satellitetracker.data.api.ApiServiceImpl
 import com.efendioglu.satellitetracker.data.cache.DatabaseHelper
+import com.efendioglu.satellitetracker.data.model.Satellite
 import com.efendioglu.satellitetracker.databinding.MainFragmentBinding
 import com.efendioglu.satellitetracker.ui.main.adapter.SatellitesAdapter
 import com.efendioglu.satellitetracker.utils.ViewModelFactory
@@ -28,14 +32,20 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+
+typealias ActionCallback = (Satellite) -> Unit
 
 class MainFragment : Fragment() {
 
+    private lateinit var callback: ActionCallback
+
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(callback: ActionCallback): MainFragment {
+            val fragment = MainFragment()
+            fragment.callback = callback
+            return fragment
+        }
     }
 
     private var _binding: MainFragmentBinding? = null
@@ -43,7 +53,7 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    private val adapter = SatellitesAdapter(arrayListOf())
+    private lateinit var adapter: SatellitesAdapter;
 
 
     private val json = kotlinx.serialization.json.Json {
@@ -78,10 +88,15 @@ class MainFragment : Fragment() {
         initObservers()
 
         binding.swipeContainer.setOnRefreshListener {
-            viewModel.sendIntent(MainContract.Intent.OnPullToRefresh)
+            viewModel.sendIntent(MainContract.Intent.RefreshSatellites)
         }
 
-        viewModel.sendIntent(MainContract.Intent.OnSearchSatellitesByName(""))
+        binding.searchInputView.addTextChangedListener {
+            Log.i("SATELLITE_", "Text changed: ${it.toString()}")
+            viewModel.sendIntent(MainContract.Intent.SearchSatellitesByName(it.toString()))
+        }
+
+        viewModel.sendIntent(MainContract.Intent.FetchSatellites)
 
         return view
     }
@@ -100,6 +115,10 @@ class MainFragment : Fragment() {
     }
 
     private fun setupUI() {
+        adapter = SatellitesAdapter(arrayListOf()) { item ->
+            callback(item)
+        }
+
         binding.satelliteListView.layoutManager = LinearLayoutManager(context)
         binding.satelliteListView.run {
             val divider = DividerItemDecoration(
@@ -118,12 +137,19 @@ class MainFragment : Fragment() {
                 when(it.state) {
                     is MainContract.MainState.Idle -> { binding.progressView.isVisible = false }
                     is MainContract.MainState.Loading -> { binding.progressView.isVisible = false }
-                    is MainContract.MainState.Satellites -> {
+                    is MainContract.MainState.Success -> {
                         adapter.setData(it.state.satellites)
-                        binding.satelliteListView.adapter = adapter
 
-                        binding.progressView.isVisible = false
-                        binding.swipeContainer.isRefreshing = false
+                        with(binding) {
+                            satelliteListView.adapter = adapter
+                            progressView.isVisible = false
+                            swipeContainer.isRefreshing = false
+                        }
+                    }
+                    is MainContract.MainState.Error -> {
+                        it.state.message?.also { msg ->
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

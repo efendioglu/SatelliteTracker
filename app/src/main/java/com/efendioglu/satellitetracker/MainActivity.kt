@@ -7,6 +7,7 @@ package com.efendioglu.satellitetracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.efendioglu.satellitetracker.ui.detail.DetailFragment
 import com.efendioglu.satellitetracker.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, MainFragment.newInstance { item ->
+                    supportFragmentManager.beginTransaction().replace(R.id.container, DetailFragment.newInstance(item.id, item.name)).commitNow()
+                })
                 .commitNow()
         }
     }

@@ -13,13 +13,14 @@ CREATE TABLE SatelliteDetail (
 );
 
 CREATE TABLE Position (
-    id INTEGER AS Int NOT NULL PRIMARY KEY,
+    id INTEGER AS Int NOT NULL,
     posX REAL AS Double NOT NULL,
     posY REAL AS Double NOT NULL
 );
 
 getSatellites:
-SELECT * FROM Satellite;
+SELECT * FROM Satellite
+WHERE name LIKE :query;
 
 getSatelliteDetail:
 SELECT * FROM SatelliteDetail
