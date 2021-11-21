@@ -27,28 +27,28 @@ Developed a simple service with express on server side to simulate data. You can
 
 **Get satellites**
 
-    Endpoint: */satellite/list*
-    Example: *http://46.101.172.63:3000/satellite/list*
+    Endpoint: /satellite/list
+    Example: http://46.101.172.63:3000/satellite/list
 
 **Get a particular satellite detail**
 
-    Endpoint: */satellite/:satelliteId*
-    Example: *http://46.101.172.63:3000/satellite/1*
+    Endpoint: /satellite/:satelliteId
+    Example: http://46.101.172.63:3000/satellite/1
 
 **Update satellite name and status**
 
-    Endpoint: */satellite/:satelliteId/edit?name=:name&active=:active*
-	Example: *http://46.101.172.63:3000/satellite/1/edit?name=Satellite-1&active=true*
+    Endpoint: /satellite/:satelliteId/edit?name=:name&active=:active
+	Example: http://46.101.172.63:3000/satellite/1/edit?name=Satellite-1&active=true
 
 **Get a particular satellite positions**
 
-    Endpoint: */satellite/:satelliteId/position/list*
-    Example: *http://46.101.172.63:3000/satellite/:1/position/list*
+    Endpoint: /satellite/:satelliteId/position/list
+    Example: http://46.101.172.63:3000/satellite/:1/position/list
 
 **Add position for a specific satellite**
 
-    Endpoint: */satellite/:satelliteId/position/add?posx=:posX&posy=:posY*
-    Example: *http://46.101.172.63:3000/satellite/1/position/add?posx=0.83453&posy=0.90988*
+    Endpoint: /satellite/:satelliteId/position/add?posx=:posX&posy=:posY
+    Example: http://46.101.172.63:3000/satellite/1/position/add?posx=0.83453&posy=0.90988
 
 
 ![mvi](https://s3.ap-south-1.amazonaws.com/mindorks-server-uploads/mvi_cyclic-49d9f8c2d3fe26b7.png)
