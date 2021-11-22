@@ -38,7 +38,7 @@ class ApiServiceTest {
                 level = LogLevel.ALL
             }
         }
-        api = ApiServiceImpl(httpClient, "http://localhost:3000")
+        api = ApiServiceImpl(httpClient, "http://46.101.172.63:8080")
     }
 
 
