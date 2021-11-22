@@ -43,7 +43,7 @@ class ApiServiceTest {
 
 
     @Test
-    fun `return 3 satellites on getSatellites`() {
+    fun `return 6 satellites on getSatellites`() {
         runBlocking {
             // GIVEN
             var satelliteCount = 0
@@ -61,7 +61,7 @@ class ApiServiceTest {
 
             println("Satellite Size: $satelliteCount")
 
-            assertEquals(3, satelliteCount, "Unfortunately, 3 satellites not received from getSatellites service")
+            assertEquals(6, satelliteCount, "Unfortunately, 6 satellites not received from getSatellites service")
         }
     }
 

@@ -34,7 +34,7 @@ class DatabaseTest {
         dbQuery.insertSatellite(1, true, "Satellite 1")
 
         // WHEN
-        val satellites = dbQuery.getSatellites().executeAsList()
+        val satellites = dbQuery.getSatellites("").executeAsList()
         actualCount = satellites.size
 
         // THEN
