@@ -3,13 +3,13 @@
 ### Satellite tracking simulation app for Android. Developed with Kotlin.
 In the application, there are two screens, the screens where you list the satellites and see the satellite details.
 
-Developed by applying the **MVI architecture**. Thus, as can be seen in the picture below, a circular flow was achieved.
+Developed by applying the **MVI architecture**. Thus, as can be seen in the picture below, a cyclic flow was achieved.
 
 ### Libraries used:
 - [Koin](https://insert-koin.io/) for dependency injection
 - [Ktor](https://ktor.io/) for REST api
 - [SQLDelight](https://cashapp.github.io/sqldelight/) for database
-- [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html), [Flow](https://kotlinlang.org/docs/flow.html) for asynchronous operations
+- [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html), [SharedFlow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/), [StateFlow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) for asynchronous operations
 - [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) for app navigation
 - [Pull-To-Refresh](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) to make a request by scrolling down the list
 
